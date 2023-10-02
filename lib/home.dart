@@ -450,10 +450,302 @@ class _BottomAppBarActionItems extends StatelessWidget {
           var currentEmailStarred = false;
 
           if (model.emails[model.currentlySelectedInbox]!.isNotEmpty) {
-            
+            currentEmailStarred = model.isEmailStarred(
+              model.emails[model.currentlySelectedInbox]!.element(model.currentlySelectedEmailId),
+            );
           }
+
+          starIconColor = currentEmailStarred ? Theme.of(context).colorScheme.secondary : ReplyColors.white50;
         }
+
+        // TODO: Add Fade through transition between bottom app bar actions (Motion)
+        return drawerVisible ? Align(
+          alignment: AlignmentDirectional.bottomEnd,
+          child: IconButton(
+            icon: const Icon(Icons.settings),
+            color: IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () async {
+                drawerController.reverse();
+                showModalBottomSheet(
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: modalBorder,
+                  ),
+                  builder: (context) => const SettingBottomSheet(),
+                );
+              },
+            ),
+          ),
+        ) : onMailView ? Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              icon: ImageIcon(
+                const ASsetImage(
+                  '$_iconAssetLocation/2tone_star.png',
+                  package: _assetsPackage,
+                ),
+                color: starIconColor,
+              ),
+              onPressed: () {
+                model.starEmail(
+                  model.currentlySelelctedInbox,
+                  model.currentlySelectedEmailId,
+                );
+                if (model.currentlySelectedInbox == 'Starred') {
+                  mobileMailNavKey.currentState!.pop();
+                  model.currentlySelectedEmailId = -1;
+                }
+              },
+              color: ReplyColors.white50,
+            ),
+            IconButton(
+              icon: const ImageIcon(
+                AssetImage(
+                  '$_iconAssetLocation/2tone_delete.png',
+                  package: _assetsPackage,
+                ),
+              ),
+              onPressed: () {
+              model.deleteEmail(
+                model.currentlySelectedIndox,
+                model.currenrlySelectedEmailId,
+              );
+
+              modelMailNavKey.currentState!.pop();
+              model.currentlySelectedEmailId = -1;
+             },
+             color: ReplyColors.white50,
+            ),
+            IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: () {},
+              color: ReplyColors.white50,
+            ),
+          ],
+        ) : Align(
+          alignment: AlignmentDirectional.bottomEnd,
+          child: IconButton(
+            icon: const Icon(Icons.search),
+            color: ReplyColors.white50,
+            onPressed: () {
+              Provider.of<RouterProvider>(
+                context,
+                listen: false,
+              ).routePath = const ReplySearchPath();
+            },
+          ),
+        );
       },
     );
   }
 }
+
+class _BottomDrawerDestinations extends StatelessWidget {
+  const _BottomDrawerDestinations({
+    required this.destinations,
+    required this.drawerController,
+    required this.dropArrowController,
+    required this.onItemTapped,
+  });
+
+  final List<_Destination> destinations;
+  final AnimationController drawerController;
+  final AnimationController dropArrowController;
+  final ValueChanged<String> onItemTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Column(
+      children: [
+        for (var destination in destinations)
+        InkWell(
+          onTap: () {
+            onItemTapped(destination.name);
+            drawerController.reverse();
+            dropArrowController.forward();
+          },
+          child: Selector<EmailStore, String>(
+            selector: (context, emailStore) =>emailStore.currentlySelectedInbox,
+            builder: (context, currentlySelectedInbox, child) {
+              return ListTile(
+                leading: ImageIcon(
+                  AssetImage(
+                    destination.icon,
+                    package: _assetsPackage,
+                  ),
+                  color: destination.name == currentlySelectedInbox ? theme.colorScheme.secondary : ReplyColors.white50.withOpacity(0.64),
+                ),
+                title: Text(
+                  destination.name,
+                  style: theme.textTheme.bodyMedium!.copyWith(
+                    color: destination.name == currentlySelectedInbox ? theme.colorScheme.secondary : ReplyColors.white50.withOpacity(0.64),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+class _Destination {
+  const _Destination({
+    required this.name,
+    required this.icon,
+    required this.index,
+  });
+
+  final String name;
+  final String icon;
+  final int index;
+}
+
+
+class _BottomDrawerFolderSection extends StatelessWidget{
+  const _BottomDrawerFoldeerSection({required this.folders});
+
+  final Map<String, String> folders;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Column(
+      children: [
+        for (var folder in folders.keys)
+        InkWell(
+          onTap: {} (),
+          child: ListTile(
+            leading: ImageIcon(
+              AssetImage(
+                folders[folder]!,
+                package: _assetsPackage,
+              ),
+              color: ReplyColors.white50.withOpacity(0.64),
+            ),
+            title: Text(
+              folder,
+              style: theme.textTheme.bodyMedium!.copyWith(
+                color: ReplyColors.white50.withOpacity(0.64),
+              ),
+            ),
+          )
+        )
+      ]
+    );
+  }
+}
+
+class _MailRouter extends StatelessWidget {
+  const _MailRouter({required this.drawerController});
+
+  final AnimationController drawerController;
+
+  @override
+  Widget build(BuildContext context) {
+    final RootBackButtonDispatcher backButtonDispatcher = Router.of(context).backButtonDispatcher as RootBackButtonDispatcher;
+
+    return Router(
+      routerDelegate: MailViewRouterDelegate(
+        drawerController: drawerController,
+      ),
+      backButtonDispatcher: ChildBackButtonDispatcher(backButtonDispatcher)..takePriority(),
+    );
+  }
+}
+
+class _ReplyLogo extends StatelessWidget {
+  const _ReplyLogo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const ImageIcon(
+      AssetImage(
+        'reply/reply_logo.png',
+        package: _assetsPackage,
+      ),
+      size: 32,
+      color: ReplyColors.white50,
+    );
+  }
+}
+
+class _ReplyFab extends StatefulWidget {
+  const _ReplyFab();
+
+  @override
+  State<_ReplyFab> createState() => _ReplyFabState();
+}
+
+class _ReplyFabState extends State<_ReplyFab> with SingleTickerProviderStateMixin {
+  // TODO: Add Fade through transition between compose and reply FAB (Motion)
+  static const double _mobileFabDimension = 56;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    const circleFabBorder = CircleBorder();
+
+    return Selector<EmailStore, bool>(
+      selector: (context, emailStore) => emailStore.onMailViewe,
+      builder: (context, onMailView, child) {
+        // TODO: Add Fade through transition between compose and reply FAB (Motion)
+        final fabSwitcher = onMailView ? const Icon(
+          Icons.reply_all,
+          color: Colors.black,
+        ) : const Icon(
+          Icons.create,
+          color: Colors.black,
+        );
+        final tooltip = onMailView ? 'Reply' : 'Compose';
+
+        // TODO: Add Container Transform from FAB to compose email page (Motion)
+        return Material(
+          color: theme.colorScheme.secondary,
+          shape: circleFabBorder,
+          child: Tooltip(
+            message: tooltip,
+            child: InkWell(
+              customBorder: circleFabBorder,
+              onTap: () {
+                Provider.of<EmailStore>(
+                  context,
+                  listen: false,
+                ).onCompose = true;
+
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (
+                      BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secondaryAnimation,
+                    ) {
+                      return const ComposePage();
+                    },
+                  ),
+                );
+              },
+              child: SizedBox(
+                height: _mobileFabDimension,
+                width: _mobileFabDimension,
+                child: Center(
+                  child: fabSwitcher,
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    );
+  }
+}
+
+// TODO: Add Fade through transition between compose and reply FAB (Motion)
