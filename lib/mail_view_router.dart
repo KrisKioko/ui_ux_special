@@ -12,7 +12,7 @@ class MailViewRouterDelegate extends RouterDelegate<void> with ChangeNotifier, P
 
   final AnimationController drawerController;
 
-  @verride
+  @override
   Widget build(BuildContext context) {
     bool handlePopPage(Route<dynamic> route, dynamic result) {
       return false;
