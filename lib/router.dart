@@ -1,19 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reply/custom_transition_page.dart';
-import 'package:reply/home.dart';
-import 'package:reply/search_page.dart';
+import 'package:ui_ux_special/custom_transition_page.dart';
+import 'package:ui_ux_special/home.dart';
+import 'package:ui_ux_special/search_page.dart';
 
 import 'model/router_provider.dart';
 
 
-const String _homepageLocation = '/reply/home';
-const String _searchPageLocation = '/reply/search';
+const String _homePageLocation = 'home';
+const String _searchPageLocation = 'search';
 
-class ReplyRouterDelegate extends RouterDelegate<ReplyRoutePath> with ChangeNotiifier, PopNavigatorRouterDelegateMixin<ReplyRoute> {
+class ReplyRouterDelegate extends RouterDelegate<ReplyRoutePath> with ChangeNotifier, PopNavigatorRouterDelegateMixin<ReplyRoutePath> {
   ReplyRouterDelegate({required this.replyState}) : navigatorKey = GlobalObjectKey<NavigatorState>(replyState) {
-    replyState.addListeners(() {
+    replyState.addListener(() {
       notifyListeners();
     });
   }
@@ -114,7 +114,7 @@ class ReplyRouteInformationParser extends RouteInformationParser<ReplyRoutePath>
       return const RouteInformation(location: _homePageLocation);
     }
     if (configuration is ReplySearchPath) {
-      return const RouteInformation(location: _searchPathLocation);
+      return const RouteInformation(location: _searchPageLocation);
     }
     return null;
   }

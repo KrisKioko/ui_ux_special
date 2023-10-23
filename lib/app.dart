@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:reply/router.dart';
 
 import 'package:ui_ux_special/colors.dart';
+import 'package:ui_ux_special/router.dart';
 import 'model/email_store.dart';
 import 'model/router_provider.dart';
 
@@ -16,19 +16,19 @@ class ReplyApp extends StatefulWidget {
 }
 
 class _ReplyAppState extends State<ReplyApp> {
-  final RouteProvider _replyState = RouterProvider(const ReplyHomePath());
+  final RouterProvider _replyState = RouterProvider(const ReplyHomePath());
   final ReplyRouteInformationParser _routeInformationParser = ReplyRouteInformationParser();
-  late final ReplyRouteDelegate _routeDelegate;
+  late final ReplyRouterDelegate _routeDelegate;
 
   @override
   void initState() {
     super.initState();
-    _routeDelegate = ReplyRouteDelegate(replyState: _replyState);
+    _routeDelegate = ReplyRouterDelegate(replyState: _replyState);
   }
 
   @override
   void dispose() {
-    _routerDelegate.dispose();
+    _routeDelegate.dispose();
     super.dispose();
   }
 

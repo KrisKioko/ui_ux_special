@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package::provider/provider.dart';
 import 'package:provider/provider.dart';
-import 'package:reply/model/router_provider.dart';
+import 'package:ui_ux_special/model/router_provider.dart';
+import 'package:ui_ux_special/settings_bottom_sheet.dart';
+
+import 'dart:math' as math;
 
 import 'bottom_drawer.dart';
 import 'colors.dart';
@@ -10,7 +12,6 @@ import 'compose_page.dart';
 import 'mail_view_router.dart';
 import 'model/email_store.dart';
 import 'router.dart';
-import 'settings_bottom_sheet.dart';
 import 'waterfall_notched_rectangle.dart';
 
 const _assetPackage = 'gallery';
@@ -30,10 +31,10 @@ class HomePage extends StatefulWidget {
 
 
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final AnimationController _drawerController;
   late final AnimationController _dropArrowController;
-  late final AnimatedContainer _bottomAppBarController;
+  late final AnimationController _bottomAppBarController;
   late final Animation<double> _drawerCurve;
   late final Animation<double> _dropArrowCurve;
   late final Animation<double> _bottomAppBarCurve;
@@ -192,7 +193,7 @@ class HomePageState extends State<HomePage> {
     _drawerController.value -= details.primaryDelta! / _bottomDrawerHeight;
   }
 
-  void _handleDragEnd(DragUpdateDetails details) {
+  void _handleDragEnd(DragEndDetails details) {
     if (_drawerController.isAnimating || _drawerController.status == AnimationStatus.completed) {
       return;
     }
@@ -279,13 +280,13 @@ class HomePageState extends State<HomePage> {
           child: Visibility(
             visible: _bottomDrawerVisible,
             child: BottomDrawer(
-              onVerticalDragEnd: _handleDragUpdate,
+              onVerticalDragUpdate: _handleDragUpdate,
               onVerticalDragEnd: _handleDragEnd,
               leading: _BottomDrawerDestinations(
                 destinations: _navigationDestinations,
                 drawerController: _drawerController,
                 dropArrowController: _dropArrowController,
-                onItemTapped: _updateMailbox,
+                onItemTapped: updateMailbox,
               ),
               trailing: _BottomDrawerFolderSection(folders: _folders),
             ),
@@ -314,7 +315,7 @@ class HomePageState extends State<HomePage> {
         padding: EdgeInsetsDirectional.only(bottom: 8),
         child: _ReplyFab(),
       ),
-      floatingActionButtonAnimator: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
@@ -451,7 +452,7 @@ class _BottomAppBarActionItems extends StatelessWidget {
 
           if (model.emails[model.currentlySelectedInbox]!.isNotEmpty) {
             currentEmailStarred = model.isEmailStarred(
-              model.emails[model.currentlySelectedInbox]!.element(model.currentlySelectedEmailId),
+              model.emails[model.currentlySelectedInbox]!.elementAt(model.currentlySelectedEmailId),
             );
           }
 
@@ -463,19 +464,17 @@ class _BottomAppBarActionItems extends StatelessWidget {
           alignment: AlignmentDirectional.bottomEnd,
           child: IconButton(
             icon: const Icon(Icons.settings),
-            color: IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () async {
-                drawerController.reverse();
-                showModalBottomSheet(
-                  context: context,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: modalBorder,
-                  ),
-                  builder: (context) => const SettingBottomSheet(),
-                );
-              },
-            ),
+            color: ReplyColors.white50,
+            onPressed: () async {
+              drawerController.reverse();
+              showModalBottomSheet(
+                context: context,
+                shape: RoundedRectangleBorder(
+                  borderRadius: modalBorder,
+                ),
+                builder: (context) => const SettingsBottomSheet(),
+              );
+            },
           ),
         ) : onMailView ? Row(
           mainAxisSize: MainAxisSize.max,
@@ -483,15 +482,15 @@ class _BottomAppBarActionItems extends StatelessWidget {
           children: [
             IconButton(
               icon: ImageIcon(
-                const ASsetImage(
-                  '$_iconAssetLocation/2tone_star.png',
-                  package: _assetsPackage,
+                const AssetImage(
+                  '$_iconAssetLocation/2tone_star.png',    // Need Editing
+                  package: 'assets/images',      // Need Editing
                 ),
                 color: starIconColor,
               ),
               onPressed: () {
                 model.starEmail(
-                  model.currentlySelelctedInbox,
+                  model.currentlySelectedInbox,
                   model.currentlySelectedEmailId,
                 );
                 if (model.currentlySelectedInbox == 'Starred') {
@@ -504,17 +503,17 @@ class _BottomAppBarActionItems extends StatelessWidget {
             IconButton(
               icon: const ImageIcon(
                 AssetImage(
-                  '$_iconAssetLocation/2tone_delete.png',
-                  package: _assetsPackage,
+                  '$_iconAssetLocation/2tone_delete.png',     // Need Editing
+                  package: '_assetsPackage',      // Need Editing
                 ),
               ),
               onPressed: () {
               model.deleteEmail(
-                model.currentlySelectedIndox,
-                model.currenrlySelectedEmailId,
+                model.currentlySelectedInbox,
+                model.currentlySelectedEmailId,
               );
 
-              modelMailNavKey.currentState!.pop();
+              mobileMailNavKey.currentState!.pop();
               model.currentlySelectedEmailId = -1;
              },
              color: ReplyColors.white50,
@@ -575,8 +574,8 @@ class _BottomDrawerDestinations extends StatelessWidget {
               return ListTile(
                 leading: ImageIcon(
                   AssetImage(
-                    destination.icon,
-                    package: _assetsPackage,
+                    destination.icon,     // Need Editing
+                    package: '_assetsPackage',     // Need Editing
                   ),
                   color: destination.name == currentlySelectedInbox ? theme.colorScheme.secondary : ReplyColors.white50.withOpacity(0.64),
                 ),
@@ -610,7 +609,7 @@ class _Destination {
 
 
 class _BottomDrawerFolderSection extends StatelessWidget{
-  const _BottomDrawerFoldeerSection({required this.folders});
+  const _BottomDrawerFolderSection({required this.folders});
 
   final Map<String, String> folders;
 
@@ -622,12 +621,12 @@ class _BottomDrawerFolderSection extends StatelessWidget{
       children: [
         for (var folder in folders.keys)
         InkWell(
-          onTap: {} (),
+          onTap: () {},
           child: ListTile(
             leading: ImageIcon(
               AssetImage(
-                folders[folder]!,
-                package: _assetsPackage,
+                folders[folder]!,    // Need Editing
+                package: '_assetsPackage',    // Need Editing
               ),
               color: ReplyColors.white50.withOpacity(0.64),
             ),
@@ -667,10 +666,10 @@ class _ReplyLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ImageIcon(
-      AssetImage(
-        'reply/reply_logo.png',
-        package: _assetsPackage,
+    return ImageIcon(
+      const AssetImage(
+        'reply/reply_logo.png',     // Need Editing
+        package: '_assetsPackage',    // Need Editing
       ),
       size: 32,
       color: ReplyColors.white50,
@@ -695,7 +694,7 @@ class _ReplyFabState extends State<_ReplyFab> with SingleTickerProviderStateMixi
     const circleFabBorder = CircleBorder();
 
     return Selector<EmailStore, bool>(
-      selector: (context, emailStore) => emailStore.onMailViewe,
+      selector: (context, emailStore) => emailStore.onMailView,
       builder: (context, onMailView, child) {
         // TODO: Add Fade through transition between compose and reply FAB (Motion)
         final fabSwitcher = onMailView ? const Icon(

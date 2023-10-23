@@ -26,7 +26,7 @@ class InboxPage extends StatelessWidget {
             padding: const EdgeInsetsDirectional.only(
               start: horizontalPadding,
               end: horizontalPadding,
-              bottom: kToolbaarHeight,
+              bottom: kToolbarHeight,
             ),
             primary: false,
             separatorBuilder: (context, index) => const SizedBox(height: 4),

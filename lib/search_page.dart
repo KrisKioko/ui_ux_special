@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reply:model/router_provider.dart';
-import 'package:reply/router.dart';
+import 'package:ui_ux_special/model/router_provider.dart';
 import 'package:ui_ux_special/router.dart';
 
 class SearchPage extends StatelessWidget {
@@ -41,12 +40,14 @@ class SearchPage extends StatelessWidget {
                   ],
                 ),
               ),
+
               const Divider(thickness: 1),
-              Expanded(
+              
+              const Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       _SectionHeader(title: 'YESTERDAY'),
                       _SearchHistoryTile(
                         search: '481 Van Brunt Street',
