@@ -286,7 +286,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 destinations: _navigationDestinations,
                 drawerController: _drawerController,
                 dropArrowController: _dropArrowController,
-                onItemTapped: updateMailbox,
+                onItemTapped:  updateMailbox,
               ),
               trailing: _BottomDrawerFolderSection(folders: _folders),
             ),
