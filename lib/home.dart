@@ -14,7 +14,7 @@ import 'model/email_store.dart';
 import 'router.dart';
 import 'waterfall_notched_rectangle.dart';
 
-const _assetPackage = 'assets';
+const assetPackage = 'assets';
 const _iconAssetLocation = 'assets/icons';
 const _folderIconAssetLocation = '$_iconAssetLocation/2tone_folder.png';
 final mobileMailNavKey = GlobalKey<NavigatorState>();
