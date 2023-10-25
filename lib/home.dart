@@ -504,7 +504,7 @@ class _BottomAppBarActionItems extends StatelessWidget {
               icon: const ImageIcon(
                 AssetImage(
                   '$_iconAssetLocation/2tone_delete.png',     // Need Editing
-                  package: '_assetsPackage',      // Need Editing
+                  package: 'assetsPackage',      // Need Editing
                 ),
               ),
               onPressed: () {
@@ -575,7 +575,7 @@ class _BottomDrawerDestinations extends StatelessWidget {
                 leading: ImageIcon(
                   AssetImage(
                     destination.icon,     // Need Editing
-                    package: '_assetsPackage',     // Need Editing
+                    package: 'assetsPackage',     // Need Editing
                   ),
                   color: destination.name == currentlySelectedInbox ? theme.colorScheme.secondary : ReplyColors.white50.withOpacity(0.64),
                 ),
@@ -626,7 +626,7 @@ class _BottomDrawerFolderSection extends StatelessWidget{
             leading: ImageIcon(
               AssetImage(
                 folders[folder]!,    // Need Editing
-                package: '_assetsPackage',    // Need Editing
+                package: 'assetsPackage',    // Need Editing
               ),
               color: ReplyColors.white50.withOpacity(0.64),
             ),
@@ -669,7 +669,7 @@ class _ReplyLogo extends StatelessWidget {
     return ImageIcon(
       const AssetImage(
         'images/reply_logo.png',     // Need Editing
-        package: '_assetsPackage',    // Need Editing
+        package: 'assetsPackage',    // Need Editing
       ),
       size: 32,
       color: ReplyColors.white50,
