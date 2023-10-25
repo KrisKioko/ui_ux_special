@@ -127,8 +127,8 @@ class _SubjectRowState extends State<_SubjectRow> {
           IconButton(
             icon: ImageIcon(
               const AssetImage(
-                'reply/icons/2tone_send.png',
-                package: 'flutter_gallery_assets',
+                'assets/icons/2tone_send.png',
+                package: 'assets/icons',
               ),
               color: colorScheme.onSurface,
             ),
@@ -241,7 +241,7 @@ class _RecipientsRow extends StatelessWidget {
                   avatar: CircleAvatar(
                     backgroundImage: AssetImage(
                       avatar,
-                      package: 'flutter_gallery_assets',
+                      package: 'assets/avatars',
                     ),
                   ),
                   label: Text(

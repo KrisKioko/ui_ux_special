@@ -266,7 +266,7 @@ class _PicturePreview extends StatelessWidget {
             child: Image.asset(
               'assets/images/paris_${index + 1}.jpg',
               gaplessPlayback: true,
-              package: 'assets/images',
+              package: 'assets/attachments',
             ),
           );
         },

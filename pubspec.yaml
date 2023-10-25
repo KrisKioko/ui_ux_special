@@ -62,6 +62,41 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - packages/flutter_gallery_assets/fonts/google_fonts/WorkSans-Regular.ttf
+    - packages/flutter_gallery_assets/fonts/google_fonts/WorkSans-Medium.ttf
+    - packages/flutter_gallery_assets/fonts/google_fonts/WorkSans-Bold.ttf
+    - packages/flutter_gallery_assets/fonts/google_fonts/WorkSans-Thin.ttf
+    - packages/flutter_gallery_assets/fonts/google_fonts/WorkSans-SemiBold.ttf
+    - assets/attachments/paris_1.jpg
+    - assets/attachments/paris_2.jpg
+    - assets/attachments/paris_3.jpg
+    - assets/attachments/paris_4.jpg
+    - assets/avatars/avatar_0.png
+    - assets/avatars/avatar_1.png
+    - assets/avatars/avatar_2.jpg
+    - assets/avatars/avatar_3.png
+    - assets/avatars/avatar_4.png
+    - assets/avatars/avatar_5.jpg
+    - assets/avatars/avatar_6.png
+    - assets/avatars/avatar_7.png
+    - assets/avatars/avatar_8.png
+    - assets/avatars/avatar_9.png
+    - assets/avatars/avatar_10.png
+    - assets/avatars/avatar_express.jpg
+    - assets/icons/2tone_add_circle_outline.png
+    - assets/icons/2tone_delete.png
+    - assets/icons/2tone_drafts.png
+    - assets/icons/2tone_error.png
+    - assets/icons/2tone_folder.png
+    - assets/icons/2tone_forward.png
+    - assets/icons/2tone_inbox.png
+    - assets/icons/2tone_send.png
+    - assets/icons/2tone_star_on_background.png
+    - assets/icons/2tone_star.png
+    - assets/icons/2tone_stars.png
+    - assets/images/reply_logo.png
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

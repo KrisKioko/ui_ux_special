@@ -14,8 +14,8 @@ import 'model/email_store.dart';
 import 'router.dart';
 import 'waterfall_notched_rectangle.dart';
 
-const _assetPackage = 'gallery';
-const _iconAssetLocation = 'reply/icons';
+const _assetPackage = 'assets';
+const _iconAssetLocation = 'assets/icons';
 const _folderIconAssetLocation = '$_iconAssetLocation/2tone_folder.png';
 final mobileMailNavKey = GlobalKey<NavigatorState>();
 const double _kFlingVelocity = 2.0;
@@ -668,7 +668,7 @@ class _ReplyLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return ImageIcon(
       const AssetImage(
-        'reply/reply_logo.png',     // Need Editing
+        'images/reply_logo.png',     // Need Editing
         package: '_assetsPackage',    // Need Editing
       ),
       size: 32,
