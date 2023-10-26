@@ -4,7 +4,7 @@ import 'package:ui_ux_special/settings_bottom_sheet.dart';
 
 import 'email_model.dart';
 
-const _avatarsLocation = 'reply/avatars';
+const _avatarsLocation = 'avatars';
 
 class EmailStore with ChangeNotifier {
   final _categories = <String, Set<Email>>{
@@ -24,7 +24,7 @@ class EmailStore with ChangeNotifier {
       message: 'Cucumber Mask Facial has shipped.\n\n'
           'Keep an eye out for a package to arrive between this Thursday and next Tuesday. If for any reason you don\'t receive your package before the end of next week, please reach out to us for details on your shipment.\n\n'
           'As always, thank you for shopping with us and we hope you love our specially formulated Cucumber Mask!',
-      avatar: '$_avatarsLocation/avatar_express.png',
+      avatar: '$_avatarsLocation/avatar_express.jpg',
       recipients: 'Jeff',
       containsPictures: false,
     ),
@@ -46,7 +46,7 @@ class EmailStore with ChangeNotifier {
       time: '5 hrs ago',
       subject: 'Bonjour from Paris',
       message: 'Here are some great shots from my trip...',
-      avatar: '$_avatarsLocation/avatar_3.jpg',
+      avatar: '$_avatarsLocation/avatar_3.png',
       recipients: 'Jeff',
       containsPictures: true,
     ),
@@ -62,7 +62,7 @@ class EmailStore with ChangeNotifier {
           'I hear it\'s beautiful there and if you\'re up for it, I\'d love to go. Other than that, I haven\'t spent too much time looking into places along our road trip route. '
           'I\'m assuming we can find places to stay and things to do as we drive and find places we think look interesting. But... I know you\'re more of a planner, so if you have ideas or places in mind, lets jot some ideas down!\n\n'
           'Maybe we can jump on the phone later today if you have a second.',
-      avatar: '$_avatarsLocation/avatar_8.jpg',
+      avatar: '$_avatarsLocation/avatar_8.png',
       recipients: 'Allison, Kim, Jeff',
       containsPictures: false,
     ),
@@ -71,7 +71,7 @@ class EmailStore with ChangeNotifier {
       time: '10 hrs ago',
       subject: 'Update to Your Itinerary',
       message: '',
-      avatar: '$_avatarsLocation/avatar_4.jpg',
+      avatar: '$_avatarsLocation/avatar_4.png',
       recipients: 'Jeff',
       containsPictures: false,
     ),
@@ -80,7 +80,7 @@ class EmailStore with ChangeNotifier {
       time: '12 hrs ago',
       subject: 'Delivered',
       message: 'Your shoes should be waiting for you at home!',
-      avatar: '$_avatarsLocation/avatar_express.png',
+      avatar: '$_avatarsLocation/avatar_express.jpg',
       recipients: 'Jeff',
       containsPictures: false,
     ),
@@ -97,7 +97,7 @@ class EmailStore with ChangeNotifier {
           'Hi friends,\n\nI was at the grocery store on Sunday night.. when I ran into Genie Williams! I almost didn\'t recognize her afer 20 years!\n\n'
           'Anyway, it turns out she is on the organizing committee for the high school reunion this fall. I don\'t know if you were planning on going or not, but she could definitely use our help in trying to track down lots of missing alums. '
           'If you can make it, we\'re doing a little phone-tree party at her place next Saturday, hoping that if we can find one person, thee more will...',
-      avatar: '$_avatarsLocation/avatar_7.jpg',
+      avatar: '$_avatarsLocation/avatar_7.png',
       recipients: 'Jeff',
       containsPictures: false,
     ),
@@ -122,7 +122,7 @@ class EmailStore with ChangeNotifier {
       message:
           'Your update is now live on the Play Store and available for your alpha users to start testing.\n\n'
           'Your alpha testers will be automatically notified. If you\'d rather send them a link directly, go to your Google Play Console and follow the instructions for obtaining an open alpha testing link.',
-      avatar: '$_avatarsLocation/avatar_4.jpg',
+      avatar: '$_avatarsLocation/avatar_4.png',
       recipients: 'Jeff',
       containsPictures: false,
     ),
@@ -133,7 +133,7 @@ class EmailStore with ChangeNotifier {
       message:
           'Looking for the best hiking trails in your area? TrailGo gets you on the path to the outdoors faster than you can pack a sandwich.\n\n'
           'Whether you\'re an experienced hiker or just looking to get outside for the afternoon, there\'s a segment that suits you.',
-      avatar: '$_avatarsLocation/avatar_3.jpg',
+      avatar: '$_avatarsLocation/avatar_3.png',
       recipients: 'Jeff',
       containsPictures: false,
     ),
@@ -146,7 +146,7 @@ class EmailStore with ChangeNotifier {
       subject: 'Free money',
       message:
           'You\'ve been selected as a winner in our latest raffle! To claim your prize, click on the link.',
-      avatar: '$_avatarsLocation/avatar_3.jpg',
+      avatar: '$_avatarsLocation/avatar_3.png',
       recipients: 'Jeff',
       containsPictures: false,
     ),

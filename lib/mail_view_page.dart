@@ -144,9 +144,9 @@ class _PictureGrid extends StatelessWidget {
       itemCount: 4,
       itemBuilder: (context, index) {
         return Image.asset(
-          'reply/attachment/paris_${index + 1}.jpg',
+          'assets/attachments/paris_${index + 1}.jpg',
           gaplessPlayback: true,
-          package: 'assets',
+          package: 'attachments',
           fit: BoxFit.fill,
         );
       }

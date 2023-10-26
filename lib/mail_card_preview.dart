@@ -264,9 +264,9 @@ class _PicturePreview extends StatelessWidget {
           return Padding(
             padding: const EdgeInsetsDirectional.only(end: 4),
             child: Image.asset(
-              'assets/images/paris_${index + 1}.jpg',
+              'attachments/paris_${index + 1}.jpg',
               gaplessPlayback: true,
-              package: 'assets/attachments',
+              package: 'assets',
             ),
           );
         },

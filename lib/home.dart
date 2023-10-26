@@ -14,8 +14,8 @@ import 'model/email_store.dart';
 import 'router.dart';
 import 'waterfall_notched_rectangle.dart';
 
-const assetPackage = 'assets';
-const _iconAssetLocation = 'assets/icons';
+const assetPackage = 'images';
+const _iconAssetLocation = 'icons';
 const _folderIconAssetLocation = '$_iconAssetLocation/2tone_folder.png';
 final mobileMailNavKey = GlobalKey<NavigatorState>();
 const double _kFlingVelocity = 2.0;
@@ -483,8 +483,8 @@ class _BottomAppBarActionItems extends StatelessWidget {
             IconButton(
               icon: ImageIcon(
                 const AssetImage(
-                  '$_iconAssetLocation/2tone_star.png',    // Need Editing
-                  package: 'assets/images',      // Need Editing
+                  '$_iconAssetLocation/2tone_star.png',   
+                  package: 'icons',      
                 ),
                 color: starIconColor,
               ),
@@ -504,7 +504,7 @@ class _BottomAppBarActionItems extends StatelessWidget {
               icon: const ImageIcon(
                 AssetImage(
                   '$_iconAssetLocation/2tone_delete.png',     // Need Editing
-                  package: 'assetsPackage',      // Need Editing
+                  package: assetPackage,      // Need Editing
                 ),
               ),
               onPressed: () {
@@ -575,7 +575,7 @@ class _BottomDrawerDestinations extends StatelessWidget {
                 leading: ImageIcon(
                   AssetImage(
                     destination.icon,     // Need Editing
-                    package: 'assetsPackage',     // Need Editing
+                    package: assetPackage,     // Need Editing
                   ),
                   color: destination.name == currentlySelectedInbox ? theme.colorScheme.secondary : ReplyColors.white50.withOpacity(0.64),
                 ),
@@ -626,7 +626,7 @@ class _BottomDrawerFolderSection extends StatelessWidget{
             leading: ImageIcon(
               AssetImage(
                 folders[folder]!,    // Need Editing
-                package: 'assetsPackage',    // Need Editing
+                package: assetPackage,
               ),
               color: ReplyColors.white50.withOpacity(0.64),
             ),
@@ -668,8 +668,8 @@ class _ReplyLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return ImageIcon(
       const AssetImage(
-        'images/reply_logo.png',     // Need Editing
-        package: 'assetsPackage',    // Need Editing
+        'assets/images/reply_logo.png',     // Need Editing
+        package: assetPackage,    // Need Editing
       ),
       size: 32,
       color: ReplyColors.white50,
